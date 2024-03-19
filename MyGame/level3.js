@@ -11,7 +11,6 @@ class level3 extends Phaser.Scene {
     this.load.image("floor", "asses/tree.png");
     this.load.image("tree2", "asses/tree2.png");
     this.load.image("tree3", "asses/tree3.png");
-    this.load.image("milkTea2", "asses/milkTea2.png");
 
     // Use spritesheet for the girl
     this.load.spritesheet("boy", "asses/boy.png", {
@@ -19,6 +18,10 @@ class level3 extends Phaser.Scene {
       frameHeight: 64,
    });
    this.load.spritesheet("enemy1", "asses/enemy.png", {
+    frameWidth: 64,
+    frameHeight: 64,
+   });
+   this.load.spritesheet("milkTea2", "asses/milkTea2.png", {
     frameWidth: 64,
     frameHeight: 64,
    });
@@ -105,13 +108,16 @@ class level3 extends Phaser.Scene {
     this.player.body.setSize(this.player.width * 0.5, this.player.height * 0.7);
     this.player.setCollideWorldBounds(true)
 
-    var milkTea = map.findObject("objectLayer",(obj)=> obj.name === "item")
+   
     this.object1 = this.add.image(415.45,294.51,'milkTea2')
 
    //var start = map.findObject("objectLayer",obj.name === "start");
   //var end = map.findObject("objectLayer",obj.name === "end");
   //load drone objects
+
+  let milkTea = map.findObject("objectLayer", (obj) => obj.name === "item")
   let enemy1 = map.findObject("objectLayer", (obj) => obj.name === "enemy1")
+  this.milkTea = this.physics.add.sprite(415.45,294.51,'milkTea2')
   this.enemy1 = this.physics.add.sprite(244, 398, "enemy1");
   this.enemy2 = this.physics.add.sprite(574, 523, "enemy1");
   this.enemy3 = this.physics.add.sprite(268, 655, "enemy1");
@@ -145,6 +151,7 @@ class level3 extends Phaser.Scene {
     this.physics.add.overlap(this.player,this.enemy1,this.hitEnemy1,null,this);
     this.physics.add.overlap(this.player,this.enemy2,this.hitEnemy2,null,this);
     this.physics.add.overlap(this.player,this.enemy3,this.hitEnemy3,null,this);
+    this.physics.add.overlap(this.player,this.milkTea,this.hitmilkTea,null,this);
     
     
  //create the arrow keys
@@ -215,6 +222,12 @@ class level3 extends Phaser.Scene {
   }
     // outside of update()
 
+    hitmilkTea(player, item) {
+      console.log("player hit milkTea")
+      this.cameras.main.shake(200);
+      item.disableBody(true, true)
+      return false
+    }
     hitEnemy1(player, item) {
       console.log("player hit enemy1")
       this.cameras.main.shake(200);
