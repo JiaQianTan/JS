@@ -15,15 +15,24 @@ class level1 extends Phaser.Scene {
        this.load.image("defimon3", "asses/defimon3.png");
        this.load.image("design", "asses/design.png");
        this.load.image("defimon5", "asses/defimon5.png");
-       this.load.image("grape", "asses/grape.png");
-       this.load.image("lemon", "asses/lemon.png");
-       this.load.image("cheery", "asses/cheery.png");
        
     // Use spritesheet for the girl
        this.load.spritesheet("boy", "asses/boy.png", {
        frameWidth: 64,
        frameHeight: 64,
     });
+    this.load.spritesheet("grape", "asses/grape.png", {
+      frameWidth: 64,
+      frameHeight: 64,
+   });
+   this.load.spritesheet("lemon", "asses/lemon.png", {
+    frameWidth: 64,
+    frameHeight: 64,
+ });
+ this.load.spritesheet("cheery", "asses/cheery.png", {
+  frameWidth: 64,
+  frameHeight: 64,
+});
 }
 
      // end of preload //
@@ -117,15 +126,20 @@ class level1 extends Phaser.Scene {
     window.player = this.player;
     this.player.body.setSize(this.player.width * 0.5, this.player.height * 0.7);
 
-    var fruit = map.findObject("objectLayer",(obj)=> obj.name === "grape")
-    this.object1 = this.add.image(230.50,369.85,'grape')
-    var fruit2 = map.findObject("objectLayer",(obj)=> obj.name === "lemon")
-    this.object1 = this.add.image(187.54,215.83,'lemon')
-    var fruit3 = map.findObject("objectLayer",(obj)=> obj.name === "cheery")
-    this.object1 = this.add.image(591.96,505.00,'cheery')
+    let grape = map.findObject("objectLayer", (obj) => obj.name === "grape")
+    let lemon = map.findObject("objectLayer", (obj) => obj.name === "lemon")
+    let cheery = map.findObject("objectLayer", (obj) => obj.name === "cheery")
+    this.grape = this.physics.add.sprite(230.50,369.85,"grape")
+    this.lemon = this.physics.add.sprite(187.54,215.83,"lemon")
+    this.cheery = this.physics.add.sprite(591.96,505,"cheery")
 
-
- 
+    this.physics.add.overlap(this.player,this.grape,this.hitgrape,null,this);
+    this.physics.add.overlap(this.player,this.lemon,this.hitlemon,null,this);
+    this.physics.add.overlap(this.player,this.cheery,this.hitcheery,null,this);
+    
+    //create the arrow keys
+    this.cursors = this.input.keyboard.createCursorKeys(); 
+    // make the camera follow the player
     var page2Down = this.input.keyboard.addKey(50);
 
     page2Down.on('down', function(){
@@ -169,7 +183,9 @@ class level1 extends Phaser.Scene {
     } // end of create //
 
     update () {
-      if (this.player.x > 629 && this.player.y > 118 && this.player.y < 233) {
+      if (this.player.x > 629 && 
+        this.player.y > 118 && 
+        this.player.y < 233 ) {
         console.log("Door1");
         this.room1();
       }
@@ -193,6 +209,28 @@ class level1 extends Phaser.Scene {
 
     }
       // outside of update()
+
+ hitgrape(player, item) {
+  console.log("player hit grape")
+  this.cameras.main.shake(200);
+  item.disableBody(true, true)
+  window.grape++
+  return false
+}
+hitlemon(player, item) {
+  console.log("player hit lemon")
+  this.cameras.main.shake(200);
+  item.disableBody(true, true)
+  window.lemon++
+  return false
+}
+hitcheery(player, item) {
+  console.log("player hit cheery")
+  this.cameras.main.shake(200);
+  item.disableBody(true, true)
+  window.cheery++
+  return false
+}
 
   // Function to jump to room1
   room1(player, tile) {

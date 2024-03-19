@@ -98,62 +98,61 @@ class level2 extends Phaser.Scene {
   window.player = this.player;
   this.player.body.setSize(this.player.width * 0.5, this.player.height * 0.7);
 
-  var jellyy = map.findObject("objectLayer",(obj)=> obj.name === "item1")
-  this.Object1 = this.add.image(77.53,428.52,'jelly')
-  var icee = map.findObject("objectLayer",(obj)=> obj.name === "item2")
-  this.Object2 = this.add.image(371.94,487.19,'ice')
-  var orangee = map.findObject("objectLayer",(obj)=> obj.name === "item3")
-  this.Object3 = this.add.image(235.74,104.77,'orange')
-  var fruit = map.findObject("objectLayer",(obj)=> obj.name === "item4")
-  this.Object4 = this.add.image(302.79,489.29,'grape')
-  var fruit2 = map.findObject("objectLayer",(obj)=> obj.name === "item5")
-  this.Object5 = this.add.image(108.96,557.39,'lemon')
-  var fruit3 = map.findObject("objectLayer",(obj)=> obj.name === "item6")
-  this.Object6 = this.add.image(435.85,136.20,'cheery')
+    let jelly = map.findObject("objectLayer", (obj) => obj.name === "item1")
+    let ice = map.findObject("objectLayer", (obj) => obj.name === "item2")
+    let orange = map.findObject("objectLayer", (obj) => obj.name === "item3")
+    let grape = map.findObject("objectLayer", (obj) => obj.name === "item4")
+    let lemon = map.findObject("objectLayer", (obj) => obj.name === "item5")
+    let cheery = map.findObject("objectLayer", (obj) => obj.name === "item6")
 
-  // When object overlap with player, call the this.collectFire function
-  this.physics.add.overlap(this.player,this.object3,this.hitObject3,null,this);
-  this.physics.add.overlap(this.player,this.object4,this.hitObject4,null,this);
-  this.physics.add.overlap(this.player,this.object5,this.hitObject5,null,this);
-  this.physics.add.overlap(this.player,this.object6,this.hitObject6,null,this);
+    this.jelly = this.physics.add.sprite(77.53,428.52,"jelly")
+    this.ice = this.physics.add.sprite(371.94,487.19,"ice")
+    this.orange = this.physics.add.sprite(235.74,104.77,"orange")
+    this.grape = this.physics.add.sprite(302.79,489.29,"grape")
+    this.lemon = this.physics.add.sprite(108.96,557.39,"lemon")
+    this.cheery = this.physics.add.sprite(435.85,136.20,"cheery")
+
+    this.physics.add.overlap(this.player,this.ice,this.hitice,null,this);
+    this.physics.add.overlap(this.player,this.jelly,this.hitjelly,null,this);
+
 
   this.tweens.add({
-    targets: this.Object1,
+    targets: this.jelly,
     y: 450,
     yoyo: true,
     duration: 1500,
     repeat: -1
     })
     this.tweens.add({
-    targets: this.Object2,
+    targets: this.ice,
     y: 500,
     yoyo: true,
     duration: 3500,
     repeat: -1
     })
    this.tweens.add({
-    targets: this.Object3,
+    targets: this.orange,
     y: 100,
     yoyo: true,
     duration: 1500,
     repeat: -1
     })
   this.tweens.add({
-   targets: this.Object4,
+   targets: this.grape,
    y: 500,
    yoyo: true,
    duration: 3500,
     repeat: -1
         })
   this.tweens.add({
-   targets: this.Object5,
+   targets: this.lemon,
    y: 540,
    yoyo: true,
    duration: 3500,
    repeat: -1
     })
   this.tweens.add({
-    targets: this.Object6,
+    targets: this.cherry,
     y: 150,
     yoyo: true,
     duration:3500,
@@ -224,30 +223,19 @@ this.cursors = this.input.keyboard.createCursorKeys();
   }
     // outside of update()
 
-    hitObject3(player, item) {
-      console.log("player hit object3")
+    hitjelly(player, item) {
+      console.log("player hit jelly")
       this.cameras.main.shake(200);
       item.disableBody(true, true)
       return false
     }
-    hitObject4(player, item) {
-      console.log("player hit object4")
+    hitice(player, item) {
+      console.log("player hit ice")
       this.cameras.main.shake(200);
       item.disableBody(true, true)
       return false
     }
-    hitObject5(player, item) {
-      console.log("player hit object5")
-      this.cameras.main.shake(200);
-      item.disableBody(true, true)
-      return false
-    }
-    hitObject6(player, item) {
-      console.log("player hit object6")
-      this.cameras.main.shake(200);
-      item.disableBody(true, true)
-      return false
-    }
+    
 
 // Function to jump to room1
 room1(player, tile) {
@@ -260,4 +248,3 @@ room1(player, tile) {
   // Function to jump to room1
 
  // end of update //
-
