@@ -15,7 +15,6 @@ class level1 extends Phaser.Scene {
        this.load.image("defimon3", "asses/defimon3.png");
        this.load.image("design", "asses/design.png");
        this.load.image("defimon5", "asses/defimon5.png");
-       this.load.image("wall2", "asses/wall2.png");
        this.load.image("grape", "asses/grape.png");
        this.load.image("lemon", "asses/lemon.png");
        this.load.image("cheery", "asses/cheery.png");
@@ -119,7 +118,7 @@ class level1 extends Phaser.Scene {
     this.player.body.setSize(this.player.width * 0.5, this.player.height * 0.7);
 
     var fruit = map.findObject("objectLayer",(obj)=> obj.name === "grape")
-    this.object1 = this.add.image(73.34,95.34,'grape')
+    this.object1 = this.add.image(230.50,369.85,'grape')
     var fruit2 = map.findObject("objectLayer",(obj)=> obj.name === "lemon")
     this.object1 = this.add.image(187.54,215.83,'lemon')
     var fruit3 = map.findObject("objectLayer",(obj)=> obj.name === "cheery")
@@ -127,11 +126,11 @@ class level1 extends Phaser.Scene {
 
 
  
-    var level2Down = this.input.keyboard.addKey(50);
+    var page2Down = this.input.keyboard.addKey(50);
 
-    level2Down.on('down', function(){
-        console.log("go to level 02");
-            this.scene.start("level2");
+    page2Down.on('down', function(){
+        console.log("go to page2");
+            this.scene.start("page2");
         }, this );
     
 
@@ -198,7 +197,7 @@ class level1 extends Phaser.Scene {
   // Function to jump to room1
   room1(player, tile) {
     console.log("room1 function");
-    this.scene.start("level2");
+    this.scene.start("page2");
   }
 }
 

@@ -163,11 +163,11 @@ class level2 extends Phaser.Scene {
 //create the arrow keys
 this.cursors = this.input.keyboard.createCursorKeys();
 
-    var level3Down = this.input.keyboard.addKey(50);
+    var page3Down = this.input.keyboard.addKey(50);
 
-    level3Down.on('down', function(){
-        console.log("go to level 03");
-            this.scene.start("level3");
+    page3Down.on('down', function(){
+        console.log("go to page3");
+            this.scene.start("page3");
         }, this );
 
 
@@ -252,7 +252,7 @@ this.cursors = this.input.keyboard.createCursorKeys();
 // Function to jump to room1
 room1(player, tile) {
   console.log("room1 function");
-  this.scene.start("level3");
+  this.scene.start("page3");
 }
 }
    // outside of update()
