@@ -4,13 +4,23 @@ class introPage extends Phaser.Scene {
       super({ key: 'introPage' });
   }
 
+  init(){
+  this.sound.stopAll();
+  }
+  
   preload() {
       // Images
+      this.load.audio("bgmusic", "asses/bgmusic.mp3");
       this.load.image("introimg", "asses/introPage.jpg");
+
   }
 
   create() {
+     this.bgmusic = this.sound.add("bgmusic",{loop: true})
+     this.bgmusic.play();
+
       const instructionImg = this.add.image(0, 0, 'introimg');
+
 
       // Calculate scale factors
       const scaleX = this.game.config.width / instructionImg.width;

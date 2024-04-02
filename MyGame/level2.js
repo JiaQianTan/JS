@@ -38,6 +38,8 @@ class level2 extends Phaser.Scene {
     // Step 4 Load the game tiles
     //1st parameter is name in Tiled,
     //2nd parameter is key in Preload
+  
+  
     let groundTiles = map.addTilesetImage("floor", "floor");
     let rack2Tiles = map.addTilesetImage("rack2", "rack2");
     let wall2Tiles = map.addTilesetImage("wall2", "wall2")

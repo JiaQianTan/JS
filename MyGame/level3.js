@@ -1,11 +1,14 @@
 class level3 extends Phaser.Scene {
   constructor() {
     super({ key: "level3" });
+    this.lives = 3;
   }
 
   preload() {
     // Step 1, load JSON
     this.load.tilemapTiledJSON("world3", "asses/myMap3.tmj");
+   
+ 
 
     // Step 2 : Preload any images here
     this.load.image("floor", "asses/tree.png");
@@ -42,6 +45,8 @@ class level3 extends Phaser.Scene {
     // Step 4 Load the game tiles
     //1st parameter is name in Tiled,
     //2nd parameter is key in Preload
+   
+   
     let floorTiles = map.addTilesetImage("floor", "floor");
     let tree2Tiles = map.addTilesetImage("tree2", "tree2");
     let tree3Tiles = map.addTilesetImage("tree3", "tree3");
@@ -224,7 +229,7 @@ class level3 extends Phaser.Scene {
       this.player.y > 374 && 
       this.player.y < 457) {
       console.log("Door5");
-      this.room1();
+      this.room5();
     }
 
     if (this.cursors.left.isDown) {
@@ -257,27 +262,64 @@ class level3 extends Phaser.Scene {
       console.log("player hit enemy1")
       this.cameras.main.shake(200);
       item.disableBody(true, true)
+
+      this.deductLife();
+
       return false
     }
+    deductLife() {
+      this.lives--; // Decrease life count
+    
+      if (this.lives <= 0) {
+          // If no more lives, go to gameOver scene
+          this.scene.start('gameOver', { level: 3 });
+      } else {
+          // Otherwise, update UI or perform other actions
+          switch (this.lives) {
+              case 2:
+                  this.heart3.visible = false;
+                  break;
+              case 1:
+                  this.heart2.visible = false;
+                  break;
+              case 0:
+                  this.heart1.visible = false;
+                  break;
+          }
+      }
+    }
+
     hitEnemy2(player, item) {
       console.log("player hit enemy2")
       this.cameras.main.shake(200);
       item.disableBody(true, true)
+
+      this.deductLife();
+
       return false
     }
+    
+
     hitEnemy3(player, item) {
       console.log("player hit enemy3")
       this.cameras.main.shake(200);
       item.disableBody(true, true)
+
+      this.deductLife();
+
       return false
     }
+    
+      
+    
 
 // Function to jump to room1
-room1(player, tile) {
-  console.log("room1 function");
+room5(player, tile) {
+  console.log("room5 function");
   this.scene.start("gameOver");
 }
 }
+
    // outside of update()
 
   // Function to jump to room1
