@@ -17,6 +17,9 @@ class level2 extends Phaser.Scene {
     this.load.image("grape", "asses/grape.png");
     this.load.image("lemon", "asses/lemon.png");
     this.load.image("cheery", "asses/cheery.png");
+    this.load.image("heart1", "asses/heart.png"); 
+    this.load.image("heart2", "asses/heart.png"); 
+    this.load.image("heart3", "asses/heart.png"); 
     // Use spritesheet for the girl
     this.load.spritesheet("boy", "asses/boy.png", {
       frameWidth: 64,
@@ -112,6 +115,15 @@ class level2 extends Phaser.Scene {
     this.lemon = this.physics.add.sprite(108.96,557.39,"lemon")
     this.cheery = this.physics.add.sprite(435.85,136.20,"cheery")
 
+    this.heart1 = this.add.sprite(477, 23, "heart1");
+    this.heart1.setDepth(1); // Set the depth to 1 (or higher if needed) to render it on top
+
+    this.heart2 = this.add.sprite(515, 23, "heart2");
+    this.heart2.setDepth(1); // Set the depth to 1 (or higher if needed) to render it on top
+  
+    this.heart3 = this.add.sprite(552, 23, "heart3");
+    this.heart3.setDepth(1);
+
     this.physics.add.overlap(this.player,this.ice,this.hitice,null,this);
     this.physics.add.overlap(this.player,this.jelly,this.hitjelly,null,this);
 
@@ -198,6 +210,19 @@ this.cursors = this.input.keyboard.createCursorKeys();
  
 
   update () {
+    const camera = this.cameras.main;
+    const heart1X = camera.scrollX + camera.width - 30;
+    const heart1Y = camera.scrollY + 35;
+    this.heart1.setPosition(heart1X, heart1Y);  
+  
+    const heart2X = camera.scrollX + camera.width - 70;
+    const heart2Y = camera.scrollY + 35;
+    this.heart2.setPosition(heart2X, heart2Y);  
+  
+    const heart3X = camera.scrollX + camera.width - 110;
+    const heart3Y = camera.scrollY + 35;
+    this.heart3.setPosition(heart3X, heart3Y);  
+    
     if (this.player.x > 629 && this.player.y > 118 && this.player.y < 233) {
       console.log("Door3");
       this.room1();

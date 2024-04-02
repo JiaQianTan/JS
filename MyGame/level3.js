@@ -11,6 +11,9 @@ class level3 extends Phaser.Scene {
     this.load.image("floor", "asses/tree.png");
     this.load.image("tree2", "asses/tree2.png");
     this.load.image("tree3", "asses/tree3.png");
+    this.load.image("heart1", "asses/heart.png"); 
+    this.load.image("heart2", "asses/heart.png"); 
+    this.load.image("heart3", "asses/heart.png"); 
 
     // Use spritesheet for the girl
     this.load.spritesheet("boy", "asses/boy.png", {
@@ -145,7 +148,14 @@ class level3 extends Phaser.Scene {
     repeat: -1
     })
 
+    this.heart1 = this.add.sprite(477, 23, "heart1");
+    this.heart1.setDepth(1); // Set the depth to 1 (or higher if needed) to render it on top
 
+    this.heart2 = this.add.sprite(515, 23, "heart2");
+    this.heart2.setDepth(1); // Set the depth to 1 (or higher if needed) to render it on top
+  
+    this.heart3 = this.add.sprite(552, 23, "heart3");
+    this.heart3.setDepth(1);
 
    // When object overlap with player, call the this.collectFire function
     this.physics.add.overlap(this.player,this.enemy1,this.hitEnemy1,null,this);
@@ -157,11 +167,11 @@ class level3 extends Phaser.Scene {
  //create the arrow keys
   this.cursors = this.input.keyboard.createCursorKeys();
 // make the camera follow the player
-    var level3Down = this.input.keyboard.addKey(51);
+    var gameOverDown = this.input.keyboard.addKey(51);
 
-    level3Down.on('down', function(){
-        console.log("go to level 03");
-            this.scene.start("level3");
+    gameOverDown.on('down', function(){
+        console.log("go to gameOver");
+            this.scene.start("gameOver");
         }, this );
 
 
@@ -197,9 +207,24 @@ class level3 extends Phaser.Scene {
  
 
   update () {
-    if (this.player.x > 629 && this.player.y > 118 && this.player.y < 233) {
-      console.log("Door3");
-      this.room3();
+    const camera = this.cameras.main;
+    const heart1X = camera.scrollX + camera.width - 30;
+    const heart1Y = camera.scrollY + 35;
+    this.heart1.setPosition(heart1X, heart1Y);  
+  
+    const heart2X = camera.scrollX + camera.width - 70;
+    const heart2Y = camera.scrollY + 35;
+    this.heart2.setPosition(heart2X, heart2Y);  
+  
+    const heart3X = camera.scrollX + camera.width - 110;
+    const heart3Y = camera.scrollY + 35;
+    this.heart3.setPosition(heart3X, heart3Y);  
+
+    if (this.player.x > 784 && 
+      this.player.y > 374 && 
+      this.player.y < 457) {
+      console.log("Door5");
+      this.room1();
     }
 
     if (this.cursors.left.isDown) {
@@ -248,9 +273,9 @@ class level3 extends Phaser.Scene {
     }
 
 // Function to jump to room1
-room3(player, tile) {
-  console.log("room3 function");
-  this.scene.start("level3");
+room1(player, tile) {
+  console.log("room1 function");
+  this.scene.start("gameOver");
 }
 }
    // outside of update()
